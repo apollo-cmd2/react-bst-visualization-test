@@ -7,22 +7,6 @@ export class Node {
     this.left = null;
     this.right = null;
   }
-
-  addNode(n: Node) {
-    if (n.val < this.val) {
-      if (this.left == null) {
-        this.left = n;
-      } else {
-        this.left.addNode(n);
-      }
-    } else if (n.val > this.val) {
-      if (this.right == null) {
-        this.right = n;
-      } else {
-        this.right.addNode(n);
-      }
-    }
-  }
 }
 
 export class Tree {
@@ -32,11 +16,31 @@ export class Tree {
   }
 
   addValue(val: number) {
-    const node = new Node(val);
-    if (this.root === null) {
-      this.root = node;
+    const node = this.root;
+    if (node === null) {
+      this.root = new Node(val);
+      return;
     } else {
-      this.root.addNode(node);
+      const searchTree = function (nodes: Node): void | null {
+        if (val < nodes.val) {
+          if (nodes.left === null) {
+            nodes.left = new Node(val);
+            return;
+          } else if (nodes.val !== null) {
+            return searchTree(nodes.left);
+          }
+        } else if (val > nodes.val) {
+          if (nodes.right === null) {
+            nodes.right = new Node(val);
+            return;
+          } else if (nodes.val !== null) {
+            return searchTree(nodes.right);
+          }
+        } else {
+          return null;
+        }
+      };
+      searchTree(node);
     }
   }
 }
