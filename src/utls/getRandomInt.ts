@@ -3,5 +3,5 @@ export const getRandomInt = (min: number, max: number) => {
 };
 
 export const testFunction = () => {
-  console.log("test commit");
+  console.log("test commit #3");
 };
